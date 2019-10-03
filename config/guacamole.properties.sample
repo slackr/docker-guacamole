@@ -1,0 +1,7 @@
+### Duo MFA Config
+duo-api-hostname: 
+duo-integration-key: 
+duo-secret-key: 
+duo-application-key: $(dd if=/dev/random count=1 | sha256sum)
+
+enable-clipboard-integration: true
