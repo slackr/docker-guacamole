@@ -30,8 +30,6 @@ services:
     hostname: guacui
     user: ${GUACUI_RUN_AS}
     restart: always
-    ports:
-      - 8080:8080
     links:
       - guacd
       - db
@@ -48,6 +46,24 @@ services:
       GUACAMOLE_HOME: /config
     volumes:
       - ${GUAC_CONFIG_DIR}:/config
-
+  
+  web:
+    hostname: web
+    restart: always
+    ports:
+      - 80:80
+      - 443:443 
+    links:
+      - guacui
+    build:
+      context: './web' 
+      args:
+        - WEB_RUN_AS=${WEB_RUN_AS}
+    volumes:
+     - ./nginx:/etc/nginx/conf.d
+    environment:
+     - NGINX_HOST=web
+     - NGINX_PORT=443
+  
 volumes:
   data:

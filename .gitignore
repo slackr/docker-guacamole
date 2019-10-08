@@ -1,2 +1,4 @@
 config/guacamole.properties
+nginx/guacamole.conf
+nginx/ssl/*
 .env
