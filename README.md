@@ -1,13 +1,13 @@
 # docker-guacamole
 
-[Guacamole](https://guacamole.incubator.apache.org/) is a really useful tool,
+[Guacamole](https://guacamole.apache.org/) is a really useful tool,
 but can be difficult to setup properly. The deployment  process can be greatly
 simplified using docker containers, and orchestrated using `docker-compose`.
 
-This was forked from @BrowncoatShadow's compose-guacamole project and updated slightly to add
+This was forked from `@BrowncoatShadow`'s compose-guacamole project and updated slightly to add
 Duo MFA extension.
 
-Using @aeboccia's nginx configuration to proxy traffic to tomcat: https://github.com/aeboccia/docker/blob/master/Guacamole/web/guacamole_revproxy.conf
+Using `@aeboccia`'s nginx configuration to proxy traffic to tomcat: https://github.com/aeboccia/docker/blob/master/Guacamole/web/guacamole_revproxy.conf
 
 ## Usage
 
@@ -18,19 +18,21 @@ git clone https://github.com/slackr/docker-guacamole
 cd docker-guacamole
 ```
 
-* Create ./config/guacamole.properties from sample and add duo config data if needed 
-* Modify ./.env and update passwords
-
+* Create `./config/guacamole.properties` from sample and add duo config data if needed 
+* Modify `./.env` and update passwords
+* Create `./nginx/guacamole.conf` from sample and modify `location /[path]/ {}` if needed
 * Generate nginx certificates
 
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout ./nginx/ssl/web.key -out ./nginx/ssl/web.crt
-chmod 600 ./ssl/web.key
+chmod 600 ./nginx/ssl/web.key
 ```
 
 * Bring it all up 
 
-```docker-compose up -d```
+```
+docker-compose up -d
+```
 
 Give it a few seconds to initialize and then you can access guacamole
 at `http://docker-host/` (or whatever you specified in the nginx .conf). The default username and password are
